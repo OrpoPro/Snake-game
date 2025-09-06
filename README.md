@@ -7,6 +7,9 @@ The classic Snake with lot of settings. Guide the snake to eat apples, grow long
 
 ## Technology Stack
 Language: Python
+
 Graphics & Sound: Pygame
+
 Data Storage: SQLite3
+
 Dialogue Boxes: EasyGUI, Tkinter
