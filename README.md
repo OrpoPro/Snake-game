@@ -1,4 +1,4 @@
-![snake](https://raw.githubusercontent.com/OrpoPro/Snake-game/refs/heads/main/photo/snake.png)
+![snake](https://raw.githubusercontent.com/OrpoPro/Snake-game/refs/heads/main/assets/textures/snake.png)
 # What is Snake game?
 Source code game developed in Python using the Pygame library
 
