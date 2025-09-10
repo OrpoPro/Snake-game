@@ -9,22 +9,19 @@ import variables as v
 
 
 from sys import exit
-try:
-    from functions import\
-        get_value,\
-        backup_image,\
-        add_setting,\
-        fullend,\
-        load_menu,\
-        move,\
-        load_image,\
-        load_image_with_no_file,\
-        pikup,\
-        score,\
-        gamov
-except FileNotFoundError:
-    x=input('Не найдет файл functions.py\nНажмите любую клавишу для продолжения…')
-    exit()
+
+from functions import\
+    get_value,\
+    backup_image,\
+    add_setting,\
+    fullend,\
+    load_menu,\
+    move,\
+    load_image,\
+    load_image_with_no_file,\
+    pikup,\
+    score,\
+    gamov
 
 
 
@@ -79,6 +76,8 @@ def keyUnpack(fullkey):
         if i==',':
             Flag=False
     return newKey
+
+
 # клавиши
 
 v.Up=int(get_value('keyUp'))
@@ -104,6 +103,8 @@ v.Player_name=get_value('playerName')
 
 timeless=''
 indic=-1
+
+
 
 # настройка окна
 
@@ -131,7 +132,7 @@ elif get_value('windowTitleBar')=='True':
 
 # музыка
 
-v.game_sound=pg.mixer.Sound('music/'+get_value('selectedMusic'))
+v.game_sound=pg.mixer.Sound('assets/music/'+get_value('selectedMusic'))
 v.game_sound.set_volume(float(get_value('musicValume')))
 
 
@@ -150,11 +151,11 @@ v.score_max=int(float(get_value('record')))
 
 # цвет фона
 
-v.dolax=get_value('backgroundColor')
+v.background_color=get_value('backgroundColor')
 
 
 
-for i in v.dolax:
+for i in v.background_color:
     if i!=',':
         v.dolax2+=i
     if i==',':
@@ -162,31 +163,33 @@ for i in v.dolax:
         v.dolax2=''
 
 
-v.dolax_screen_color=(int(v.dolax3[0]),\
-                      int(v.dolax3[1]),\
-                      int(v.dolax3[2]))
+v.screen_colors=(int(v.dolax3[0]),\
+                 int(v.dolax3[1]),\
+                 int(v.dolax3[2]))
 
 
 # зимняя змея
 if v.winter:
+    print('Winter skins will be applied')
     try:
-        try:
-            v.head_image,v.head_rect=load_image("photo/new year snake.png",
+        try:        # +текстура головы и тела
+            v.head_image,v.head_rect=load_image("assets/textures/new year snake.png",
                                                 400,300,
                                                 40,40)
-            v.bodi_image,v.bodi_rect=load_image("photo/new year snake segment.png",
+            v.bodi_image,v.bodi_rect=load_image("assets/textures/new year snake segment.png",
                                                 370,300,
                                                 35,35)
-        except:
-            backup_image('https://i.imgur.com/cw5kbMr.png','photo/new year snake.png')
-            backup_image('https://i.imgur.com/OgqpRiK.png','photo/new year snake segment.png')
+        except:     # если нет, то восстановление текстур
+            backup_image('https://i.imgur.com/cw5kbMr.png','assets/textures/new year snake.png')
+            backup_image('https://i.imgur.com/OgqpRiK.png','assets/textures/new year snake segment.png')
 
-            v.head_image,v.head_rect=load_image("photo/new year snake.png",
+            v.head_image,v.head_rect=load_image("assets/textures/new year snake.png",
                                                 400,300,
                                                 40,40)
-            v.bodi_image,v.bodi_rect=load_image("photo/new year snake segment.png",
+            v.bodi_image,v.bodi_rect=load_image("assets/textures/new year snake segment.png",
                                                 370,300,
                                                 35,35)
+            print('Texture of snake has been restored')
     except:
         v.head_image,v.head_rect=load_image_with_no_file((0,255,0),
                                                          400,300,
@@ -194,26 +197,27 @@ if v.winter:
         v.bodi_image,v.bodi_rect=load_image_with_no_file((0,255,0),
                                                          370,300,
                                                          35,35)
+        print("Сouldn't restore snake texture, replaced with simple shapes")
 
 
-# летняя змея
-if not v.winter:
+# просто змея
+else:
     try:
         try:
-            v.head_image,v.head_rect=load_image("photo/snake.png",\
-                                            r(0,v.size[0]-30),\
-                                            r(0,v.size[1]-30),30,30)
-            v.bodi_image,v.bodi_rect=load_image("photo/snake segment.png",\
-                                            r(0,v.size[0]-25),\
-                                            r(0,v.size[1]-25),25,25)
+            v.head_image,v.head_rect=load_image("assets/textures/snake.png",\
+                                                r(0,v.size[0]-30),\
+                                                r(0,v.size[1]-30),30,30)
+            v.bodi_image,v.bodi_rect=load_image("assets/textures/snake segment.png",\
+                                                r(0,v.size[0]-25),\
+                                                r(0,v.size[1]-25),25,25)
         except:
-            backup_image('https://i.imgur.com/CJvWSbU.png','photo/snake.png')
-            backup_image('https://i.imgur.com/KOqDM9w.png','photo/snake segment.png')
+            backup_image('https://i.imgur.com/CJvWSbU.png','assets/textures/snake.png')
+            backup_image('https://i.imgur.com/KOqDM9w.png','assets/textures/snake segment.png')
 
-            v.head_image,v.head_rect=load_image("photo/snake.png",\
+            v.head_image,v.head_rect=load_image("assets/textures/snake.png",\
                                             r(0,v.size[0]-30),\
                                             r(0,v.size[1]-30),30,30)
-            v.bodi_image,v.bodi_rect=load_image("photo/snake segment.png",\
+            v.bodi_image,v.bodi_rect=load_image("assets/textures/snake segment.png",\
                                             r(0,v.size[0]-25),\
                                             r(0,v.size[1]-25),25,25)
     except:
@@ -229,12 +233,12 @@ v.snake=[v.head_rect,v.bodi_rect]
 # яблоко
 try:
     try:
-        v.apple_image,v.apple_rect=load_image("photo/aple.png",\
+        v.apple_image,v.apple_rect=load_image("assets/textures/apple.png",\
                                         r(0,v.size[0]-40),\
                                         r(0,v.size[1]-50),40,50)
     except:
-        backup_image('https://i.imgur.com/54AIiPl.png','photo/aple.png')
-        v.apple_image,v.apple_rect=load_image("photo/aple.png",\
+        backup_image('https://i.imgur.com/54AIiPl.png','assets/textures/apple.png')
+        v.apple_image,v.apple_rect=load_image("assets/textures/apple.png",\
                                         r(0,v.size[0]-40),\
                                         r(0,v.size[1]-50),40,50)
 except:
@@ -245,23 +249,23 @@ except:
 
 # ель
 try:
-    v.el_image,v.el_rect=load_image("photo/el.png",
+    v.el_image,v.el_rect=load_image("assets/textures/el.png",
                                     800,800,
                                     100,100)
 except:
-    backup_image('https://i.imgur.com/fzh7pAn.png','photo/el.png')
-    v.el_image,v.el_rect=load_image("photo/el.png",
+    backup_image('https://i.imgur.com/fzh7pAn.png','assets/textures/el.png')
+    v.el_image,v.el_rect=load_image("assets/textures/el.png",
                                     800,800,
                                     100,100)
 
 
 # фон
 try:
-    v.bg=pg.image.load("photo/image.png")
+    v.bg=pg.image.load("assets/textures/image.png")
 
 except:
-    backup_image('https://i.imgur.com/Lzl6zSf.png','photo/image.png')
-    v.bg=pg.image.load("photo/image.png")
+    backup_image('https://i.imgur.com/Lzl6zSf.png','assets/textures/image.png')
+    v.bg=pg.image.load("assets/textures/image.png")
 
 
 
@@ -300,7 +304,7 @@ while v.ply:
         if v.timer<0:
             fullend(True)
 
-        v.win.fill(v.dolax_screen_color)
+        v.win.fill(v.screen_colors)
 
         for event in pg.event.get():
             if event.type==pg.QUIT:

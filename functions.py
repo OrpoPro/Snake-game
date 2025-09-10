@@ -359,7 +359,7 @@ def load_menu():
                             if zz!=None:
                                 v.click_sound.play()
                             try:
-                                v.game_sound=pg.mixer.Sound('music/'+zz+'.wav')
+                                v.game_sound=pg.mixer.Sound('assets/music/'+zz+'.wav')
                                 v.game_sound.set_volume(float(get_value('musicValume')))
                                 update_value('selectedMusic',zz+'.wav')
                             except:
@@ -631,7 +631,7 @@ def pikup():
 
 
 def score():
-    textfont=pg.font.Font('fonts/minecraft.ttf',30)
+    textfont=pg.font.Font(v.font,30)
     text=textfont.render(f'Рекорд: {int(v.score_max)}                      Счёт:  {int(v.game_point)}                        {v.timer//15}',True,(0,140,140))
     text_rect=text.get_rect(center=(450,80))
     v.win.blit(text,text_rect)
@@ -641,7 +641,7 @@ def score():
 
 
 def timerer(tu):
-    texter=pg.font.Font('fonts/minecraft.ttf',30)
+    texter=pg.font.Font(v.font,30)
     textir=texter.render(f'{tu/15}',True,(0,140,140))
     textir_rect=textir.get_rect(center=(450,80))
     v.win.blit(textir,textir_rect)

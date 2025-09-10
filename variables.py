@@ -38,7 +38,7 @@ don=False
 music_file_names=[]
 
 
-for filename in os.listdir('music'):
+for filename in os.listdir('assets/music'):
     if filename.endswith('.wav'):
         music_file_names.append(filename)
 
@@ -74,18 +74,18 @@ clock=pg.time.Clock()
 pg.init()
 pg.mixer.init()
 
-font=pg.font.Font("fonts/minecraft.ttf",60)
+font=pg.font.Font("assets/fonts/minecraft.ttf",60)
 
 
-nym_sound=pg.mixer.Sound("sound/nym.wav")
+nym_sound=pg.mixer.Sound("assets/sounds/nym.wav")
 nym_sound.set_volume(0.5)
 
-menu_music=pg.mixer.Sound("music/menu.wav")
+menu_music=pg.mixer.Sound("assets/music/menu.wav")
 menu_music.set_volume(0.1)
 
 
 
-click_sound=pg.mixer.Sound("sound/click.wav")
+click_sound=pg.mixer.Sound("assets/sounds/click.wav")
 click_sound.set_volume(0.5)
 
 game_sound='0'
@@ -102,11 +102,11 @@ cxz=0
 
 background_photo_indicator=True
 
-dolax=(0,0,0)
+background_color=(0,0,0)
 dolax2=''
 dolax3=[]
 
-dolax_screen_color=(0,0,0)
+screen_colors=()
 
 qwertyuiop=0
 
