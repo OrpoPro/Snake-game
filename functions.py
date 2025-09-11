@@ -56,11 +56,10 @@ def add_setting(setting,value):
 
 
 
+
 def increase_volume():
     if v.volume.get()<10:
         v.volume.set(v.volume.get()+1)
-
-
 
 def decrease_volume():
     if v.volume.get()>0:
@@ -84,17 +83,6 @@ def update_value(setting,value):
     conn.commit()
     conn.close()
 
-
-
-
-def backup_image(img_url,save_path):
-    response=requests.get(img_url,headers={'User-agent':'your bot 0.1'})
-    #print(f'Файл восстановлен')
-    if response.status_code==200:
-        with open(save_path,'wb') as f:
-            f.write(response.content)
-    else:
-        eg.msgbox(f'{v.translations["restoreError"]} {response.status_code}')
 
 
 
@@ -126,13 +114,6 @@ def get_all_scores():
 def score_save():
     if int(v.score_max)<v.game_point:
         update_value('record',str(v.game_point))
-
-    v.baza.execute('''
-        CREATE TABLE IF NOT EXISTS scores (
-            name TEXT NOT NULL,
-            score INTEGER NOT NULL
-        )
-    ''')
     add_score(v.Player_name,int(v.game_point))
 
 
@@ -142,7 +123,7 @@ def fullend(onofindicator):
     update_value('playerName',v.Player_name)
     update_value('backgroundPhotoIndicator',str(v.background_photo_indicator))
     zxc=''
-    for i in v.dolax_screen_color:
+    for i in v.background_color:
         zxc+=str(i)+','
     update_value('backgroundColor',zxc)
 
@@ -516,9 +497,9 @@ def load_menu():
                 item=i[5]
         for i in items:
             if item==i[5]:
-                v.screen.blit(v.font.render(i[2],1,i[4]),[i[0],i[1]-40])
+                v.screen.blit(pg.font.Font("assets/fonts/minecraft.ttf",60).render(i[2],1,i[4]),[i[0],i[1]-40])
             else:
-                v.screen.blit(v.font.render(i[2],1,i[3]),[i[0],i[1]-40])
+                v.screen.blit(pg.font.Font("assets/fonts/minecraft.ttf",60).render(i[2],1,i[3]),[i[0],i[1]-40])
 
         v.win.blit(v.screen,[0,40])
         pg.display.flip()
@@ -631,7 +612,7 @@ def pikup():
 
 
 def score():
-    textfont=pg.font.Font(v.font,30)
+    textfont=pg.font.Font("assets/fonts/minecraft.ttf",30)
     text=textfont.render(f'Рекорд: {int(v.score_max)}                      Счёт:  {int(v.game_point)}                        {v.timer//15}',True,(0,140,140))
     text_rect=text.get_rect(center=(450,80))
     v.win.blit(text,text_rect)
@@ -641,7 +622,7 @@ def score():
 
 
 def timerer(tu):
-    texter=pg.font.Font(v.font,30)
+    texter=pg.font.Font("assets/fonts/minecraft.ttf",30)
     textir=texter.render(f'{tu/15}',True,(0,140,140))
     textir_rect=textir.get_rect(center=(450,80))
     v.win.blit(textir,textir_rect)

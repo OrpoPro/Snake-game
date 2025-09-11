@@ -4,7 +4,7 @@ from random import randint as r
 import os
 import sqlite3
 import json
-
+import datetime
 import variables as v
 
 
@@ -12,7 +12,6 @@ from sys import exit
 
 from functions import\
     get_value,\
-    backup_image,\
     add_setting,\
     fullend,\
     load_menu,\
@@ -168,95 +167,68 @@ v.screen_colors=(int(v.dolax3[0]),\
                  int(v.dolax3[2]))
 
 
-# зимняя змея
-if v.winter:
+# зима
+if datetime.datetime.now().month in [12,1,2]:
+    skins=["assets/textures/new year snake.png",            r(0,v.size[0]-40),r(0,v.size[1]-40), 40,40,
+           "assets/textures/new year snake segment.png",    r(0,v.size[0]-35),r(0,v.size[1]-35), 35,35]
     print('Winter skins will be applied')
-    try:
-        try:        # +текстура головы и тела
-            v.head_image,v.head_rect=load_image("assets/textures/new year snake.png",
-                                                400,300,
-                                                40,40)
-            v.bodi_image,v.bodi_rect=load_image("assets/textures/new year snake segment.png",
-                                                370,300,
-                                                35,35)
-        except:     # если нет, то восстановление текстур
-            backup_image('https://i.imgur.com/cw5kbMr.png','assets/textures/new year snake.png')
-            backup_image('https://i.imgur.com/OgqpRiK.png','assets/textures/new year snake segment.png')
-
-            v.head_image,v.head_rect=load_image("assets/textures/new year snake.png",
-                                                400,300,
-                                                40,40)
-            v.bodi_image,v.bodi_rect=load_image("assets/textures/new year snake segment.png",
-                                                370,300,
-                                                35,35)
-            print('Texture of snake has been restored')
-    except:
-        v.head_image,v.head_rect=load_image_with_no_file((0,255,0),
-                                                         400,300,
-                                                         40,40)
-        v.bodi_image,v.bodi_rect=load_image_with_no_file((0,255,0),
-                                                         370,300,
-                                                         35,35)
-        print("Сouldn't restore snake texture, replaced with simple shapes")
-
-
-# просто змея
 else:
-    try:
-        try:
-            v.head_image,v.head_rect=load_image("assets/textures/snake.png",\
-                                                r(0,v.size[0]-30),\
-                                                r(0,v.size[1]-30),30,30)
-            v.bodi_image,v.bodi_rect=load_image("assets/textures/snake segment.png",\
-                                                r(0,v.size[0]-25),\
-                                                r(0,v.size[1]-25),25,25)
-        except:
-            backup_image('https://i.imgur.com/CJvWSbU.png','assets/textures/snake.png')
-            backup_image('https://i.imgur.com/KOqDM9w.png','assets/textures/snake segment.png')
+    skins=["assets/textures/snake.png",            r(0,v.size[0]-30),r(0,v.size[1]-30), 30,30,
+           "assets/textures/snake segment.png",    r(0,v.size[0]-25),r(0,v.size[1]-25), 25,25]
 
-            v.head_image,v.head_rect=load_image("assets/textures/snake.png",\
-                                            r(0,v.size[0]-30),\
-                                            r(0,v.size[1]-30),30,30)
-            v.bodi_image,v.bodi_rect=load_image("assets/textures/snake segment.png",\
-                                            r(0,v.size[0]-25),\
-                                            r(0,v.size[1]-25),25,25)
-    except:
-        v.head_image,v.head_rect=load_image_with_no_file((0,255,0),\
-                                                    r(0,v.size[0]-30),\
-                                                    r(0,v.size[1]-30),30,30)
-        v.bodi_image,v.bodi_rect=load_image_with_no_file((0,255,0),\
-                                                    r(0,v.size[0]-25),\
-                                                    r(0,v.size[1]-25),25,25)
+
+try:
+    v.head_image,v.head_rect=load_image(skins[0],
+                                        skins[1],skins[2],  # координаты
+                                        skins[3],skins[4])  # размеры
+    v.bodi_image,v.bodi_rect=load_image(skins[5],
+                                        skins[6],skins[7],  # координаты
+                                        skins[8],skins[9])  # размеры
+
+except:
+    v.head_image,v.head_rect=load_image_with_no_file((0,255,0),
+                                                    skins[1],skins[2],  # координаты
+                                                    skins[3],skins[4])  # размеры
+    v.bodi_image,v.bodi_rect=load_image_with_no_file((0,255,0),
+                                                    skins[6],skins[7],  # координаты
+                                                    skins[8],skins[9])  # размеры
+    print("Сouldn't restore snake texture, replaced with simple shapes")
+
 v.snake=[v.head_rect,v.bodi_rect]
+
+
+
+
+'''
+try:
+    v.head_image,v.head_rect=load_image(skins[0],
+                                            r(0,v.size[0]-30),
+                                            r(0,v.size[1]-30),30,30)
+    v.bodi_image,v.bodi_rect=load_image("assets/textures/snake segment.png",
+                                            r(0,v.size[0]-25),
+                                            r(0,v.size[1]-25),25,25)
+
+except:
+    v.head_image,v.head_rect=load_image_with_no_file((0,255,0),
+                                                    r(0,v.size[0]-30),
+                                                    r(0,v.size[1]-30),30,30)
+    v.bodi_image,v.bodi_rect=load_image_with_no_file((0,255,0),
+                                                    r(0,v.size[0]-25),
+                                                    r(0,v.size[1]-25),25,25)'''
+
 
 
 # яблоко
 try:
-    try:
-        v.apple_image,v.apple_rect=load_image("assets/textures/apple.png",\
-                                        r(0,v.size[0]-40),\
-                                        r(0,v.size[1]-50),40,50)
-    except:
-        backup_image('https://i.imgur.com/54AIiPl.png','assets/textures/apple.png')
-        v.apple_image,v.apple_rect=load_image("assets/textures/apple.png",\
-                                        r(0,v.size[0]-40),\
-                                        r(0,v.size[1]-50),40,50)
+    v.apple_image,v.apple_rect=load_image("assets/textures/apple.png",\
+                                          r(0,v.size[0]-40),\
+                                          r(0,v.size[1]-50),40,50)
+
 except:
     v.apple_image,v.apple_rect=load_image_with_no_file((255,255,0),\
                                                 r(0,v.size[0]-40),\
                                                 r(0,v.size[1]-50),40,50)
 
-
-# ель
-try:
-    v.el_image,v.el_rect=load_image("assets/textures/el.png",
-                                    800,800,
-                                    100,100)
-except:
-    backup_image('https://i.imgur.com/fzh7pAn.png','assets/textures/el.png')
-    v.el_image,v.el_rect=load_image("assets/textures/el.png",
-                                    800,800,
-                                    100,100)
 
 
 # фон
@@ -264,11 +236,7 @@ try:
     v.bg=pg.image.load("assets/textures/image.png")
 
 except:
-    backup_image('https://i.imgur.com/Lzl6zSf.png','assets/textures/image.png')
-    v.bg=pg.image.load("assets/textures/image.png")
-
-
-
+    pass
 
 
 
@@ -276,7 +244,6 @@ except:
 
 '''                                   ИГРОВОЙ ЦИКЛ                                        '''
 '''#######################################################################################'''
-
 
 
 load_menu()
@@ -315,9 +282,6 @@ while v.ply:
         if v.background_photo_indicator:
             v.win.blit(v.bg,(0,0))
 
-        if v.winter:
-            pass
-            #v.win.blit(v.el_image,v.el_rect)
         v.win.blit(v.head_image,v.head_rect)
         v.win.blit(v.apple_image,v.apple_rect)
 

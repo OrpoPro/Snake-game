@@ -1,12 +1,16 @@
 from random import randint as r
 import sqlite3
 import pygame as pg
-import datetime
 import os
 
-winter=False
-if datetime.datetime.now().month in [12,1,2]:
-    winter=True
+#база данных рекордов
+conn=sqlite3.connect('data\scores.db')
+baza=conn.cursor()
+
+baza.execute('''CREATE TABLE IF NOT EXISTS scores
+                (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 name TEXT NOT NULL,
+                 score INTEGER NOT NULL)''')
 
 Up=0
 Down=0
@@ -38,7 +42,7 @@ don=False
 music_file_names=[]
 
 
-for filename in os.listdir('assets/music'):
+for filename in 'assets/music':
     if filename.endswith('.wav'):
         music_file_names.append(filename)
 
@@ -56,9 +60,7 @@ for i in music_file_names:
 
 
 
-#база данных рекордов
-conn=sqlite3.connect('data/scores.db')
-baza=conn.cursor()
+
 
 Player_name=''
 
@@ -73,8 +75,6 @@ clock=pg.time.Clock()
 
 pg.init()
 pg.mixer.init()
-
-font=pg.font.Font("assets/fonts/minecraft.ttf",60)
 
 
 nym_sound=pg.mixer.Sound("assets/sounds/nym.wav")
@@ -122,9 +122,6 @@ game_point=0
 
 
 
-
-
-
 image=pg.Surface((30,30))
 image.fill((0,255,0))
 
@@ -139,7 +136,6 @@ bodi_image,bodi_rect='0','0'
 
 apple_image,apple_rect='0','0'
 
-el_image,el_rect='0','0'
 
 
 cursor=''
