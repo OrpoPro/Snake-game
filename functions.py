@@ -340,7 +340,7 @@ def load_menu():
                             if zz!=None:
                                 v.click_sound.play()
                             try:
-                                v.game_sound=pg.mixer.Sound('assets/music/'+zz+'.wav')
+                                v.game_sound=pg.mixer.Sound('assets/music/gameplay'+zz+'.wav')
                                 v.game_sound.set_volume(float(get_value('musicValume')))
                                 update_value('selectedMusic',zz+'.wav')
                             except:

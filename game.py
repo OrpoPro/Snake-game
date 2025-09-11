@@ -131,7 +131,7 @@ elif get_value('windowTitleBar')=='True':
 
 # музыка
 
-v.game_sound=pg.mixer.Sound('assets/music/'+get_value('selectedMusic'))
+v.game_sound=pg.mixer.Sound('assets/music/gameplay/'+get_value('selectedMusic'))
 v.game_sound.set_volume(float(get_value('musicValume')))
 
 
@@ -162,9 +162,7 @@ for i in v.background_color:
         v.dolax2=''
 
 
-v.screen_colors=(int(v.dolax3[0]),\
-                 int(v.dolax3[1]),\
-                 int(v.dolax3[2]))
+v.screen_colors=(v.background_color)
 
 
 # зима

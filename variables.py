@@ -42,7 +42,7 @@ don=False
 music_file_names=[]
 
 
-for filename in 'assets/music':
+for filename in 'assets/music/gameplay':
     if filename.endswith('.wav'):
         music_file_names.append(filename)
 
@@ -80,7 +80,7 @@ pg.mixer.init()
 nym_sound=pg.mixer.Sound("assets/sounds/nym.wav")
 nym_sound.set_volume(0.5)
 
-menu_music=pg.mixer.Sound("assets/music/menu.wav")
+menu_music=pg.mixer.Sound("assets/music/menu/For the Greater Good.wav")
 menu_music.set_volume(0.1)
 
 
